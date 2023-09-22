@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'clients/base.html' %}
+{% block content %}
+<div class="col-12 text-center">
 
-</body>
-</html>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card mb-4 box-shadow ">
+            <div class="card-header">
+                <div class="row text-center">
+                <div class="col-8"> <h4 class="my-0 font-weight-normal">Просмотр продукта</h4></div>
+                <div class="col-2">
+
+                        <a href="#" class="btn btn-success">Добавить версию</a>
+                </div>
+                    </div>
+            </div>
+            <div class="card-body text-center">
+                <div class="row-4"><h2>{{object.name}} </h2></div>
+                <div class="row-4"><h2>{{object.name_set}} </h2></div>
+                <div class="row-4"><h3>{{object.overview}}</h3></div>
+                <img class="bd-placeholder-img card-img-center" width="40%" height="180%" src="/media/{{object.image}}" alt="#">
+                <h3>-----------------------</h3>
+                <h2><div class="row-4"> цена: {{object.purchase_price}}</div></h2>
+
+
+            </div>
+            <a href="{% url 'clients:client_update' object.pk %}" class="btn btn-success mb-3">Изменить</abutton></a>
+            <a href="{% url 'clients:clients_list'  %}" class="btn btn-success mb-3">Назад</abutton></a>
+            <a href="{% url 'clients:client_delete' object.id %}" class="btn btn-danger">Удалить</abutton></a>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'clients/base.html' %}
+{% block content %}
+<div class="col-12 text-center">
 
-</body>
-</html>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card mb-4 box-shadow ">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Добавление Клиента</h4>
+            </div>
+            <div class="card-body text-center">
+                <form method="post" action="" class="form-floating" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    {% if object %}
+                    <button type="submit" class="btn btn-danger">Изменить</button>
+                    {% else %}
+                    <button type="submit" class="btn btn-danger">Создать</button>
+                    {% endif %}
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

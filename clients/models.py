@@ -6,8 +6,8 @@ NULLABLE = {'blank': True, 'null': True}
 class Clients(models.Model):
     email = models.CharField(max_length=150, verbose_name='емейл')
     first_name = models.CharField(max_length=100, verbose_name='имя')
-    last_name = models.CharField(max_length=100, verbose_name='имя')
-    surname = models.CharField(max_length=100, verbose_name='имя')
+    last_name = models.CharField(max_length=100, verbose_name='фамилия')
+    surname = models.CharField(max_length=100, verbose_name='отчество')
     comments = models.TextField(verbose_name='комментарии')
 
     class Meta:
