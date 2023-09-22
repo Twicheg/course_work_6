@@ -7,5 +7,5 @@ from clients.views import index
 app_name = ClientsConfig.name
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', index, name='main'),
 ]
