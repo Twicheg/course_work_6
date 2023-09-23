@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
-
+from services.message import send_message
 from clients.models import Clients
 from newsletter.forms import NewsletterCreateForm, MessageCreateForm
 from newsletter.models import MessageSettings, Message
@@ -14,6 +14,7 @@ class SettingsListView(ListView):
 
 
 class SettingsCreateView(CreateView):
+
     model = MessageSettings
     template_name = 'newsletter/newsletter_form.html'
     form_class = NewsletterCreateForm

@@ -2,12 +2,10 @@ from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
 
-from newsletter.models import MessageSettings
-
 
 # Create your models here.
 class Logs(models.Model):
-    newsletter = models.ForeignKey(MessageSettings, on_delete=models.SET_NULL,
+    newsletter = models.ForeignKey('newsletter.MessageSettings', on_delete=models.SET_NULL,
                                    verbose_name='рассылка', **NULLABLE)
     time = models.DateTimeField(auto_now_add=True, verbose_name="время попытки")
     status = models.BooleanField(default=False, verbose_name='статус попытки', **NULLABLE)

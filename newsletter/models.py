@@ -23,15 +23,21 @@ class MessageSettings(models.Model):
         (status_started, 'Запущены'),
         (status_done, 'Завершена'),
     )
-
-    start_time = models.TimeField(verbose_name="назначенное время старта расслыки", **NULLABLE)
-    newsletter_time = models.DateTimeField(auto_now_add=True, verbose_name='время рассылки', **NULLABLE)
+    client = models.ForeignKey('clients.Clients', verbose_name='клиент', on_delete=models.CASCADE, **NULLABLE)
+    start_time = models.DateTimeField(verbose_name="назначенное время старта расслыки", **NULLABLE)
+    created_time = models.DateTimeField(auto_now_add=True, verbose_name='время рассылки', **NULLABLE)
     periodicity = models.CharField(max_length=20, choices=period, default=period_daily, verbose_name='переодичность')
     status = models.CharField(max_length=20, choices=status, default=status_created, verbose_name='статус')
+    message_counter = models.IntegerField(verbose_name='счетчик',default=0)
+    day_to_send = models.IntegerField(default=7, verbose_name='Кол-во дней для отправки', **NULLABLE)
     message_id = models.ForeignKey('Message', on_delete=models.CASCADE, verbose_name='message_id', **NULLABLE)
 
     def __str__(self):
-        return f'{self.periodicity, self.status}'
+        return f'{self.message_id, self.start_time, self.periodicity, self.status}'
+
+    class Meta:
+        verbose_name = 'Настройка'
+        verbose_name_plural = 'Настройки'
 
 
 class Message(models.Model):
