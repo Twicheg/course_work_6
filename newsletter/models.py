@@ -47,7 +47,7 @@ class Message(models.Model):
     message_theme = models.CharField(max_length=150, verbose_name='тема сообщения')
 
     def __str__(self):
-        return f'{self.message_theme, self.message_body}'
+        return f'Тема:{self.message_theme} Сообщение:{self.message_body}'
 
     class Meta:
         verbose_name = 'Сообщение'

@@ -1,14 +1,15 @@
 {% extends 'clients/base.html' %}
 {% block content %}
-<div class="col-12 text-center">
-
-    <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card mb-4 box-shadow ">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">Добавление Клиента</h4>
-            </div>
-            <div class="card-body text-center">
-                <form method="post" action="" class="form-floating" enctype="multipart/form-data">
+<div class="row mb-4">
+    <div class="col-1"></div>
+    <div class="col-4">
+        <form method="post" action="" class="form-floating" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Добавление сообщения для {{email}} </h4>
+                </div>
+                <div class="card-body text-center">
+                    {{object.id}}
                     {% csrf_token %}
                     {{form.as_p}}
                     {% if object %}
@@ -16,10 +17,16 @@
                     {% else %}
                     <button type="submit" class="btn btn-danger">Создать</button>
                     {% endif %}
+                    <a href="{% url 'newsletter:create'%}" class="btn btn-success">Добавить настройку</a>
 
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
+    </div>
+    <div class="col-1"></div>
+
     </div>
 </div>
+</div>
+
 {% endblock %}

@@ -4,15 +4,15 @@
 <div class="col-12 text-center">
     <div class="card" style="width: 18rem;">
         <div class="card-body float-center">
-            <h5 class="card-title">Рассылки</h5>
+            <h5 class="card-title">Сохраненные настройки</h5>
         </div>
     </div>
 </div>
 </div>
 <div class="row mb-3">
-
+    <div class="col-1"></div>
     <div class="col-2 text-center">
-        <a href="{% url 'clients:client_create' %}" class="btn btn-success">Добавить клиента</a>
+        <a href="{% url 'newsletter:create' %}" class="btn btn-success">Добавить настройку</a>
     </div>
 </div>
 <div class="container">
@@ -34,7 +34,6 @@
             <tr>
                 <td><a href="{% url 'clients:client_update' object.pk %}" class="btn btn-success">Изменить </a>
                     <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a></td>
-                    {{ object.id }}
 <!--                <th>-->
 <!--                    <h4><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}} {{object.first_name}} {{object.surname}}</a></h4>-->
 <!--                </th>-->

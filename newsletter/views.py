@@ -1,3 +1,4 @@
+from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
@@ -14,10 +15,10 @@ class SettingsListView(ListView):
 
 
 class SettingsCreateView(CreateView):
-
     model = MessageSettings
     template_name = 'newsletter/newsletter_form.html'
     form_class = NewsletterCreateForm
+
     success_url = reverse_lazy('clients:clients_list')
 
 
@@ -46,16 +47,12 @@ class MessageCreateView(CreateView):
     model = Message
     form_class = MessageCreateForm
     template_name = 'newsletter/message_form.html'
+    success_url = reverse_lazy('clients:list')
 
-    def form_valid(self, form):
-        self.object = form.save()
-        client = Clients.objects.get(pk=self.kwargs.get('pk'))
-        self.object.client_id = client.id
-        self.object.save()
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
 
-    def get_success_url(self):
-        return reverse('clients:client_detail', args=[self.object.client_id])
+        return context_data
 
 
 class MessageListView(ListView):

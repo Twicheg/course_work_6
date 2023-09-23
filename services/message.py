@@ -50,7 +50,7 @@ def send_message():
                 else:
                     Logs.objects.create(newsletter=MessageSettings.objects.get(pk=obj.pk), status=False, answer=error)
 
-            elif obj.periodicity == 'weekly' and obj.status == 'started' and (timenow - start_time).days / 7 > obj.message_counter:
+            elif obj.periodicity == 'weekly' and obj.status == 'started' and (timenow - start_time).days // 7 > obj.message_counter:
                 print(f'{datetime.datetime.today()}, weekly work')
                 obj.message_counter += 1
                 error = mail(obj.message_id.message_body, obj.message_id.message_theme, obj.client.email)
@@ -59,8 +59,9 @@ def send_message():
                 else:
                     Logs.objects.create(newsletter=MessageSettings.objects.get(pk=obj.pk), status=False, answer=error)
 
-            elif obj.periodicity == 'monthly' and obj.status == 'started' and (timenow - start_time).days / 30 > obj.message_counter:
+            elif obj.periodicity == 'monthly' and obj.status == 'started' and (timenow - start_time).days // 30 > obj.message_counter:
                 print(f'{datetime.datetime.today()}, monthly work')
+                obj.message_counter += 1
                 error = mail(obj.message_id.message_body, obj.message_id.message_theme, obj.client.email)
                 if error > 0:
                     Logs.objects.create(newsletter=MessageSettings.objects.get(pk=obj.pk), status=True, answer=error)

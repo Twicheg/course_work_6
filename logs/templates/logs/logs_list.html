@@ -4,7 +4,7 @@
 <div class="col-12 text-center">
     <div class="card" style="width: 18rem;">
         <div class="card-body float-center">
-            <h5 class="card-title">Рассылки</h5>
+            <h5 class="card-title">Логи</h5>
         </div>
     </div>
 </div>
@@ -34,7 +34,6 @@
             <tr>
                 <td><a href="{% url 'newsletter:message_update' object.pk %}" class="btn btn-success">Изменить </a>
                     <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a></td>
-                    {{ object.id }}
 <!--                <th>-->
 <!--                    <h4><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}} {{object.first_name}} {{object.surname}}</a></h4>-->
 <!--                </th>-->

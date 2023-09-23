@@ -9,11 +9,11 @@ app_name = NewsletterConfig.name
 
 urlpatterns = [
     path('list/', SettingsListView.as_view(), name='list'),
-    path('<int:pk>/create/', SettingsCreateView.as_view(), name='create'),
+    path('create/', SettingsCreateView.as_view(), name='create'),
     path('update/<int:pk>/', SettingsUpdateView.as_view(), name='update'),
     path('delete/<int:pk>', SettingsDeleteView.as_view(), name='delete'),
     path('detail/<int:pk>/', SettingsDetailView.as_view(), name='detail'),
-    path('message/create/<int:pk>/', MessageCreateView.as_view(), name='message_create'),
+    path('message/create/', MessageCreateView.as_view(), name='message_create'),
     path('message/list/', MessageListView.as_view(), name='message_list'),
     path('message/delete/<int:pk>', MessageDeleteView.as_view(), name='message_delete'),
     path('message/detail/<int:pk>', MessageDetailView.as_view(), name='message_detail'),

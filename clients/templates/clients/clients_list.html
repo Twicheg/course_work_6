@@ -1,13 +1,14 @@
 {% extends 'clients/base.html' %}
 {% block content %}
+<div class="row mb-3"></div>
 <div class="row mb-3">
-<div class="col-12 text-center">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body float-center">
-            <h5 class="card-title">Рассылки</h5>
+    <div class="col-12 text-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body float-center">
+                <h5 class="card-title">Клиенты сервиса</h5>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="row mb-3">
 
@@ -21,10 +22,8 @@
         <tr>
             <th scope="col"></th>
             <th scope="col">Фио</th>
-            <th scope="col">цена</th>
-            <th scope="col">Создано</th>
-            <th scope="col">активные версии</th>
-            <th scope="col">номер версии</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">количество рассылок</th>
 
         </tr>
         </thead>
@@ -36,21 +35,13 @@
                     <a href="{% url 'clients:client_delete' object.pk %}" class="btn btn-danger">Удалить </a></td>
 
                 <th>
-                    <h4><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}} {{object.first_name}} {{object.surname}}</a></h4>
+                    <h5><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}}
+                        {{object.first_name}} {{object.surname}}</a></h5>
                 </th>
 
-                <td>{{object.purchase_price}}</td>
-                <td>{{object.user}}</td>
-                {% for obj in object.version_set.all %}
-                {% if obj.versions_activity %}
-                <td>
-                    <h4>есть активная расслыка</a></h4>
-                </td>
-                <td>
-                    <h4>{{obj.versions_number}}</h4>
-                </td>
-                {% endif %}
-                {% endfor %}
+                <td><h5>{{object.email}}</h5></td>
+                <td>{{object.messagesettings_set.all|length}}</td>
+
 
             </tr>
         </div>
