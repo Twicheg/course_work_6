@@ -37,15 +37,15 @@
                 <a class="nav-link" href="#">Регистрация</a>
             </li>
 
-<!--            <li class="nav-item dropdown">-->
-<!--                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"-->
-<!--                   aria-haspopup="true" aria-expanded="false">Settings</a>-->
-<!--                <div class="dropdown-menu" aria-labelledby="dropdown01">-->
-<!--                    <a class="dropdown-item" href="#">Action</a>-->
-<!--                    <a class="dropdown-item" href="#">Another action</a>-->
-<!--                    <a class="dropdown-item" href="#">Something else here</a>-->
-<!--                </div>-->
-<!--            </li>-->
+            <!--            <li class="nav-item dropdown">-->
+            <!--                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"-->
+            <!--                   aria-haspopup="true" aria-expanded="false">Settings</a>-->
+            <!--                <div class="dropdown-menu" aria-labelledby="dropdown01">-->
+            <!--                    <a class="dropdown-item" href="#">Action</a>-->
+            <!--                    <a class="dropdown-item" href="#">Another action</a>-->
+            <!--                    <a class="dropdown-item" href="#">Something else here</a>-->
+            <!--                </div>-->
+            <!--            </li>-->
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -56,12 +56,11 @@
 
 <div class="nav-scroller bg-white box-shadow">
     <nav class="nav nav-underline">
-        <a class="nav-link active" href="{% url 'clients:clients_list'%}">К рассылкам</a>
-        <a class="nav-link" href="#">
-            Friends
-            <span class="badge badge-pill bg-light align-text-bottom">27</span>
-        </a>
-        <a class="nav-link" href="#">Explore</a>
+        <a class="nav-link active" href="{% url 'clients:clients_list' %}">К рассылкам</a>
+        <a class="nav-link active" href="{% url 'newsletter:list' %}">newsletter</a>
+        <a class="nav-link active" href="{% url 'newsletter:message_list' %}">message</a>
+        <a class="nav-link active" href="{% url 'logs:list' %}">logs</a>
+
 
     </nav>
 </div>

@@ -33,24 +33,24 @@
         <div class="col-12">
             <tr>
                 <td><a href="{% url 'clients:client_update' object.pk %}" class="btn btn-success">Изменить </a>
-                    <a href="{% url 'clients:client_delete' object.pk %}" class="btn btn-danger">Удалить </a></td>
+                    <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a></td>
+                    {{ object.id }}
+<!--                <th>-->
+<!--                    <h4><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}} {{object.first_name}} {{object.surname}}</a></h4>-->
+<!--                </th>-->
 
-                <th>
-                    <h4><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}} {{object.first_name}} {{object.surname}}</a></h4>
-                </th>
-
-                <td>{{object.purchase_price}}</td>
-                <td>{{object.user}}</td>
-                {% for obj in object.version_set.all %}
-                {% if obj.versions_activity %}
-                <td>
-                    <h4>есть активная расслыка</a></h4>
-                </td>
-                <td>
-                    <h4>{{obj.versions_number}}</h4>
-                </td>
-                {% endif %}
-                {% endfor %}
+<!--                <td>{{object.purchase_price}}</td>-->
+<!--                <td>{{object.user}}</td>-->
+<!--                {% for obj in object.version_set.all %}-->
+<!--                {% if obj.versions_activity %}-->
+<!--                <td>-->
+<!--                    <h4>есть активная расслыка</a></h4>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <h4>{{obj.versions_number}}</h4>-->
+<!--                </td>-->
+<!--                {% endif %}-->
+<!--                {% endfor %}-->
 
             </tr>
         </div>

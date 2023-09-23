@@ -1,11 +1,9 @@
 from django.db import models
 
-from clients.models import Clients
-
 NULLABLE = {'blank': True, 'null': True}
 
 
-class NewsletterSettings(models.Model):
+class MessageSettings(models.Model):
     period_daily = 'daily'
     period_weekly = 'weekly'
     period_monthly = 'monthly'
@@ -26,27 +24,24 @@ class NewsletterSettings(models.Model):
         (status_done, 'Завершена'),
     )
 
-    client = models.ForeignKey(Clients, on_delete=models.CASCADE, verbose_name='Клиент')
-    start_time = models.TimeField(verbose_name="назначенное время расслыки")
-    newsletter_time = models.DateTimeField(auto_now_add=True, verbose_name='время рассылки')
+    start_time = models.TimeField(verbose_name="назначенное время старта расслыки", **NULLABLE)
+    newsletter_time = models.DateTimeField(auto_now_add=True, verbose_name='время рассылки', **NULLABLE)
     periodicity = models.CharField(max_length=20, choices=period, default=period_daily, verbose_name='переодичность')
     status = models.CharField(max_length=20, choices=status, default=status_created, verbose_name='статус')
+    message_id = models.ForeignKey('Message', on_delete=models.CASCADE, verbose_name='message_id', **NULLABLE)
 
     def __str__(self):
-        return f'{self.newsletter_time, self.periodicity, self.status}'
-
-    class Meta:
-        verbose_name = 'Рассылка'
-        verbose_name_plural = 'Рассылки'
+        return f'{self.periodicity, self.status}'
 
 
 class Message(models.Model):
-    newsletter = models.ForeignKey(NewsletterSettings, on_delete=models.CASCADE, verbose_name='рассылка')
+    client = models.ForeignKey('clients.Clients', on_delete=models.CASCADE, verbose_name='Клиент', **NULLABLE)
+    settings = models.ForeignKey('MessageSettings', on_delete=models.CASCADE, verbose_name='Настройка', **NULLABLE)
     message_body = models.TextField(verbose_name='сообщение')
     message_theme = models.CharField(max_length=150, verbose_name='тема сообщения')
 
     def __str__(self):
-        return f'{self.message_theme, self.message_body,}'
+        return f'{self.message_theme, self.message_body}'
 
     class Meta:
         verbose_name = 'Сообщение'
