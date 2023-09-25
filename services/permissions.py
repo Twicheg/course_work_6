@@ -9,7 +9,6 @@ def get_permissions(request):
             ('view', 'newsletter', 'MessageSettings'),
             ('view', 'users', 'user'),
             ('change', 'users', 'user'),
-            ('change', 'newsletter', 'MessageSettings'),
         ]
     # if request.user.is_active:
     #     permissions = [

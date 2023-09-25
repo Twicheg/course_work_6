@@ -45,7 +45,7 @@
                     <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a>
                     {% endif %}
                     {% if user.is_superuser%}
-                    <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a>
+                    <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить  </a>
                 </td>
                 {% endif %}
                 <th><h5>{{object.client.email}}</a></h5></th>
