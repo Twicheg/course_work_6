@@ -8,16 +8,11 @@
         <div class="card">
             <div class="card-header">
                 <div class="row text-center">
-                    <div class="col-8"><h4 class="my-0 font-weight-normal">Просмотр клиента</h4></div>
-                    <div class="col-2">
+                    <div class="col"><h4 class="my-0 font-weight-normal">Просмотр клиента {{object.email }}</h4></div>
 
-                        <a href="{% url 'newsletter:message_create'%}" class="btn btn-success">Добавить
-                            сообщение</a>
-                    </div>
                 </div>
             </div>
             <div class="card-body text-center">
-                <div class="row-4"><h4>{{object.email}} </h4></div>
                 <div class="row-4"><h4>фамилия: {{object.last_name}} </h4></div>
                 <div class="row-4"><h4>имя: {{object.first_name}} </h4></div>
                 <div class="row-4"><h4>отчество: {{object.surname}}</h4></div>

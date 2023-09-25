@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'blog',
 ]
 CRONJOBS = [
-    ('*/1 * * * *', 'services.message.send_message', f'>> {BASE_DIR}/cron_logs.txt')
+    ('*/5 * * * *', 'services.message.send_message', f'>> {BASE_DIR}/cron_logs.txt')
 ]
 if os.getenv('CACHE_ALL') == '1':
     MIDDLEWARE = [

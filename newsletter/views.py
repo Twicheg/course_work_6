@@ -66,7 +66,7 @@ class SettingsDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object()
-        if self.request.user.is_staff:
+        if self.request.user.is_staff or self.request.user.is_superuser:
             return self.object
         if self.object.content_creator != self.request.user.email:
             raise Http404
@@ -76,7 +76,7 @@ class SettingsDetailView(LoginRequiredMixin, DetailView):
 class SettingsDeleteView(LoginRequiredMixin, DeleteView):
     model = MessageSettings
     template_name = 'newsletter/newsletter_confirm_delete.html'
-    success_url = reverse_lazy('clients:main')
+    success_url = reverse_lazy('newsletter:list')
 
     def get_object(self, queryset=None):
         self.object = super().get_object()
@@ -114,19 +114,18 @@ class MessageListView(LoginRequiredMixin, ListView):
 
 
 class MessageDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'newsletter.def_message'
+    permission_required = 'newsletter.delete_message'
     model = Message
     template_name = 'newsletter/message_confirm_delete.html'
     success_url = reverse_lazy('newsletter:message_list')
 
     def get_object(self, queryset=None):
         self.object = super().get_object()
+        if self.request.user.is_superuser:
+            return self.object
         if self.object.content_creator != self.request.user.email:
             raise Http404
         return self.object
-
-    # def get_success_url(self):
-    #     return reverse('clients:client_detail', args=[self.object.client_id])
 
 
 class MessageDetailView(LoginRequiredMixin, DetailView):
@@ -135,7 +134,9 @@ class MessageDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object()
-        if not self.request.user.is_staff and self.object.content_creator != self.request.user.email:
+        if self.request.user.is_superuser:
+            return self.object
+        if self.object.content_creator != self.request.user.email:
             raise Http404
         return self.object
 
@@ -148,6 +149,8 @@ class MessageUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
     def get_object(self, queryset=None):
         self.object = super().get_object()
+        if self.request.user.is_superuser:
+            return self.object
         if self.object.content_creator != self.request.user.email:
             raise Http404
         return self.object

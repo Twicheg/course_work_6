@@ -21,6 +21,7 @@
         <tr>
             <th scope="col"></th>
             <th scope="col">Тема</th>
+            <th scope="col">ID</th>
             <th scope="col">Текст</th>
             <th scope="col">Создатель</th>
         </tr>
@@ -31,16 +32,17 @@
             <tr>
                 <td><a href="{% url 'newsletter:message_update' object.pk %}" class="btn btn-success">Изменить </a>
                     {% if user.is_staff%}
-                {% else %}
-                <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a>
-                {% endif %}
-                    {% if user.is_superuser%}
-                <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a>
-                </td>
+                    {% else %}
+                    <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a>
                     {% endif %}
+                    {% if user.is_superuser%}
+                    <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a>
+                </td>
+                {% endif %}
                 <th>
                     <h5>{{object.message_theme}}</a></h5>
                 </th>
+                <td><a href="{% url 'newsletter:message_detail' object.pk%}"><h5>{{object.id}}</h5></a></td>
 
                 <td><h5>{{object.message_body|slice:20}}</h5></td>
                 <td><h5>{{object.content_creator|default:'БОГ'}}</h5></td>

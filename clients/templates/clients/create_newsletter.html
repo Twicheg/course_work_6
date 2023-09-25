@@ -1,0 +1,47 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row mb-4">
+    <div class="col-2">
+
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2>
+                    <div class="text-danger">Как создать рассылку </div>
+                </h2>
+            </div>
+            <div class="card-body">
+                <h4> Step 1 : <a href="{% url 'clients:client_create' %}"> Добавляем клиента </a></h4>
+                <p>
+                    ------------------------------------------------------------------------------------------------------------</p>
+                <h4> Step 2 : <a href="{% url 'clients:client_create' %}"> Пишем для него сообщение </a></h4> </h4>
+                <p>
+                    ------------------------------------------------------------------------------------------------------------</p>
+                <h4> Step 3 : <a href="{% url 'clients:client_create' %}"> Указываем в настройках - клиент и
+                    сообщение </a></h4></h4>
+                <p>
+                    ------------------------------------------------------------------------------------------------------------</p>
+            </div>
+            <div class="coed-footer text-center">
+                <h3>Готово! ваша рассылка добавлена :)</h3>
+                <h5>проверка готовности к отправке каждые 5 минут.</h5>
+                <h3>Статус можно посмотреть во вкладке "К вашим рассылкам"</h3>
+                <h4>created - ждет отправки<p></p> started - отправка, согласно времени <p></p> done - закончилась , продлевать будете ?)</h4>
+                <div class="row mb-4"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+{% endblock content %}

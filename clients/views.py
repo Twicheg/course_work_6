@@ -1,10 +1,12 @@
+import random
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.models import Permission, Group
 from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, TemplateView
 
+from blog.models import Blog
 from clients.forms import ClientsCreateForm
 from clients.models import Clients
 from newsletter.models import MessageSettings
@@ -17,8 +19,16 @@ from users.models import User
 def index(request):
     if request.method == "GET":
         get_permissions(request)
+    list = [i for i in Blog.objects.all()]
+    random.shuffle(list)
+    context = {
+        'count_of_newsletter': len([i for i in MessageSettings.objects.all()]),
+        'active_news': len([i for i in MessageSettings.objects.filter(status='started')]),
+        'uniq_clients': len({i.email for i in Clients.objects.all()}),
+        'blog_list': list
+    }
 
-    return render(request, 'clients/main.html')
+    return render(request, 'clients/main.html', context)
 
 
 class ClientsListView(LoginRequiredMixin, ListView):
@@ -73,7 +83,7 @@ class ClientsDetailView(LoginRequiredMixin, DetailView):
 
 
 class ClientsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'clients.del_students'
+    permission_required = 'clients.delete_clients'
     model = Clients
     success_url = reverse_lazy('clients:clients_list')
 
@@ -82,3 +92,7 @@ class ClientsDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
         if self.object.content_creator != self.request.user.email:
             raise Http404
         return self.object
+
+
+class NewTemplateView(TemplateView):
+    template_name = 'clients/create_newsletter.html'
