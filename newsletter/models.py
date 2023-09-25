@@ -31,7 +31,7 @@ class MessageSettings(models.Model):
     message_counter = models.IntegerField(verbose_name='счетчик',default=0)
     day_to_send = models.IntegerField(default=7, verbose_name='Кол-во дней для отправки', **NULLABLE)
     message_id = models.ForeignKey('Message', on_delete=models.CASCADE, verbose_name='message_id', **NULLABLE)
-
+    content_creator = models.CharField(max_length=50, verbose_name='создатель рассылки', **NULLABLE)
     def __str__(self):
         return f'{self.message_id, self.start_time, self.periodicity, self.status}'
 
@@ -45,6 +45,7 @@ class Message(models.Model):
     settings = models.ForeignKey('MessageSettings', on_delete=models.CASCADE, verbose_name='Настройка', **NULLABLE)
     message_body = models.TextField(verbose_name='сообщение')
     message_theme = models.CharField(max_length=150, verbose_name='тема сообщения')
+    content_creator = models.CharField(max_length=50, verbose_name='создатель текста', **NULLABLE)
 
     def __str__(self):
         return f'Тема:{self.message_theme} Сообщение:{self.message_body}'

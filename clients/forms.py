@@ -13,22 +13,4 @@ class StyleFormMixin:
 class ClientsCreateForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Clients
-        fields = '__all__'
-
-    # def clean_name(self):
-    #     bad_words = ('казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар')
-    #     clean_data = self.cleaned_data['name']
-    #     for i in bad_words:
-    #         if i in clean_data:
-    #             raise forms.ValidationError('Неприемлимое название продукта')
-    #
-    #     return clean_data
-    #
-    # def clean_overview(self):
-    #     bad_words = ('казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар')
-    #     clean_data = self.cleaned_data['overview']
-    #     for i in bad_words:
-    #         if i in clean_data:
-    #             raise forms.ValidationError('Неприемлимое описание продукта')
-    #
-    #     return clean_data
+        exclude = ('content_creator',)

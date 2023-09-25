@@ -13,11 +13,11 @@ class StyleFormMixin:
 class NewsletterCreateForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = MessageSettings
-        exclude = ('status', 'message_counter',)
+        exclude = ('status', 'message_counter', 'content_creator')
 
 
 class MessageCreateForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Message
-        fields = '__all__'
-        #exclude = ('client',)
+
+        exclude = ('content_creator',)

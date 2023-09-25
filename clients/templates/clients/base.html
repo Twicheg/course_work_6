@@ -20,7 +20,7 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">"Сервис подогревательных рассылок"</a>
+    <a class="navbar-brand" href="#">"Сервис рассылок"</a>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,12 +30,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'clients:main'%}">Главная <span class="sr-only">(current)</span></a>
             </li>
+            {% if user.is_authenticated %}
+
             <li class="nav-item active">
-                <a class="nav-link" href="#">Вход <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'users:logout'%}"> Выход <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Регистрация</a>
+                <a class="nav-link" href="{% url 'users:update'%}">Профиль</a>
             </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'users:login'%}">Вход <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:register'%}">Регистрация</a>
+            </li>
+            {% endif %}
 
             <!--            <li class="nav-item dropdown">-->
             <!--                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"-->
@@ -47,10 +57,10 @@
             <!--                </div>-->
             <!--            </li>-->
         </ul>
-<!--        <form class="form-inline my-2 my-lg-0">-->
-<!--            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-<!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-<!--        </form>-->
+        <!--        <form class="form-inline my-2 my-lg-0">-->
+        <!--            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+        <!--            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+        <!--        </form>-->
     </div>
 </nav>
 

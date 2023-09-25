@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 
 from logs.models import Logs
 from newsletter.models import MessageSettings
+from users.models import User
 
 
 def mail(message, title, client):
@@ -68,4 +69,3 @@ def send_message():
                 else:
                     Logs.objects.create(newsletter=MessageSettings.objects.get(pk=obj.pk), status=False, answer=error)
             obj.save()
-

@@ -7,7 +7,7 @@ from newsletter.models import Message
 
 # Register your models here.
 @admin.register(Clients)
-class ProductAdmin(admin.ModelAdmin):
+class ClientsAdmin(admin.ModelAdmin):
     list_display = ['email', 'first_name', 'last_name', 'surname', 'comments']
     list_filter = ['last_name']
     search_fields = ['email']

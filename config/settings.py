@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "logs",
     'users',
     "django_crontab",
+    'blog',
 ]
 CRONJOBS = [
     ('*/1 * * * *', 'services.message.send_message', f'>> {BASE_DIR}/cron_logs.txt')
@@ -166,9 +167,10 @@ if CACHE_ENABLE:
         }
     }
 
-# AUTH_USER_MODEL = 'users.User'
-# LOGOUT_REDIRECT_URL = '/'
-# LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'users.User'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/users/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465

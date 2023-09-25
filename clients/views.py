@@ -15,9 +15,6 @@ def index(request):
 
 class ClientsListView(ListView):
     model = Clients
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     cd = super().get_context_data(**kwargs)
-    #     print(cd.messagesettings_set)
 
 
 class ClientsCreateView(CreateView):
@@ -25,11 +22,17 @@ class ClientsCreateView(CreateView):
     form_class = ClientsCreateForm
     success_url = reverse_lazy('clients:clients_list')
 
+    def form_valid(self, form):
+        self.object = form.save
+        self.object.content_creator = self.request.user
+        return super().form_valid(form)
+
 
 class ClientsUpdateView(UpdateView):
     model = Clients
     form_class = ClientsCreateForm
     success_url = reverse_lazy('clients:clients_list')
+
     def get_success_url(self):
         return reverse('clients:client_detail', args=[self.object.id])
 

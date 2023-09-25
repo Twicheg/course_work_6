@@ -1,0 +1,26 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+<div class="row">
+<div class="col-4"></div>
+<div class="col-6 text-center">
+
+    <div class="col-lg-8 col-md-3 col-sm-12">
+        <div class="card mb-4 box-shadow ">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Информация {{object.email}}</h4>
+            </div>
+            <div class="card-body text-center">
+                <form method="post" action="" class="form-floating" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-danger">Сохранить</button>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'users:genpass' %}" class="btn btn-danger">Генерация пароля</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

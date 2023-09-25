@@ -18,8 +18,12 @@ class SettingsCreateView(CreateView):
     model = MessageSettings
     template_name = 'newsletter/newsletter_form.html'
     form_class = NewsletterCreateForm
-
     success_url = reverse_lazy('clients:clients_list')
+
+    def form_valid(self, form):
+        self.object = form.save
+        self.object.content_creator = self.request.user
+        return super().form_valid(form)
 
 
 class SettingsUpdateView(UpdateView):
@@ -39,9 +43,6 @@ class SettingsDeleteView(DeleteView):
     template_name = 'newsletter/newsletter_confirm_delete.html'
     success_url = reverse_lazy('clients:main')
 
-    # def get_success_url(self):
-    #     return reverse('newsletter:list')
-
 
 class MessageCreateView(CreateView):
     model = Message
@@ -49,10 +50,11 @@ class MessageCreateView(CreateView):
     template_name = 'newsletter/message_form.html'
     success_url = reverse_lazy('clients:list')
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
+    def form_valid(self, form):
+        self.object = form.save
+        self.object.content_creator = self.request.user
+        return super().form_valid(form)
 
-        return context_data
 
 
 class MessageListView(ListView):
