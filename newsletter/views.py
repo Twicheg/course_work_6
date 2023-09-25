@@ -4,8 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
-from services.message import send_message
-from clients.models import Clients
+
 from newsletter.forms import NewsletterCreateForm, MessageCreateForm
 from newsletter.models import MessageSettings, Message
 
