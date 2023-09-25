@@ -1,0 +1,65 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+<div class="row mb-3"></div>
+<div class="row mb-3">
+    <div class="col-12 text-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body float-center">
+                <h5 class="card-title">Клиенты сервиса</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+
+<div class="col-2">
+    <div class="card-body">
+        <form method="post" action="" class="form-floating">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name">добавить права модератора</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="email" required>
+            </div>
+        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Добавить</button>
+        </form>
+    </div>
+</div>
+
+
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Id</th>
+            <th scope="col">Активный</th>
+            <th scope="col">Модерация</th>
+            <th scope="col">Права администратора</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+        <div class="col-12">
+            <tr>
+                <td><a href="{% url 'users:deactivate' object.pk %}" class="btn btn-success"> Бан </a>
+                    <a href="{% url 'users:activate' object.pk %}" class="btn btn-success"> Активировать </a>
+                    {% if user.is_superuser %}
+                    <a href="{% url 'users:delete' object.pk %}" class="btn btn-danger">Удалить </a></td>
+                {% endif %}
+                <td><h5>{{object.email}}</h5></td>
+                <td><h5>{{object.id}}</h5></td>
+                <td><h5>{{object.is_active}}</h5></td>
+                <td><h5>{{object.is_staff}}</h5></td>
+                <td><h5>{{object.is_superuser}}</h5></td>
+
+            </tr>
+        </div>
+        </tbody>
+
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

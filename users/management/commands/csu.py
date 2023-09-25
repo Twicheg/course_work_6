@@ -15,3 +15,4 @@ class Command(BaseCommand):
         )
         user.set_password('12345')
         user.save()
+

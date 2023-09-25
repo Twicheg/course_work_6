@@ -20,4 +20,4 @@ class MessageCreateForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Message
 
-        exclude = ('content_creator',)
+        exclude = ('content_creator', 'settings', 'client')

@@ -1,13 +1,13 @@
 {% extends 'clients/base.html' %}
 {% block content %}
 <div class="row mb-3">
-<div class="col-12 text-center">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body float-center">
-            <h5 class="card-title">Сохраненные сообщения</h5>
+    <div class="col-12 text-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body float-center">
+                <h5 class="card-title">Сохраненные сообщения</h5>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="row mb-3">
     <div class="col-1"></div>
@@ -22,10 +22,7 @@
             <th scope="col"></th>
             <th scope="col">Тема</th>
             <th scope="col">Текст</th>
-            <th scope="col">Создано</th>
-            <th scope="col">активные версии</th>
-            <th scope="col">номер версии</th>
-
+            <th scope="col">Создатель</th>
         </tr>
         </thead>
         <tbody>
@@ -33,24 +30,20 @@
         <div class="col-12">
             <tr>
                 <td><a href="{% url 'newsletter:message_update' object.pk %}" class="btn btn-success">Изменить </a>
-                    <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a></td>
+                    {% if user.is_staff%}
+                {% else %}
+                <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a>
+                {% endif %}
+                    {% if user.is_superuser%}
+                <a href="{% url 'newsletter:message_delete' object.id %}" class="btn btn-danger">Удалить </a>
+                </td>
+                    {% endif %}
                 <th>
                     <h5>{{object.message_theme}}</a></h5>
                 </th>
 
                 <td><h5>{{object.message_body|slice:20}}</h5></td>
-<!--                <td>{{object.user}}</td>-->
-<!--                {% for obj in object.version_set.all %}-->
-<!--                {% if obj.versions_activity %}-->
-<!--                <td>-->
-<!--                    <h4>есть активная расслыка</a></h4>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <h4>{{obj.versions_number}}</h4>-->
-<!--                </td>-->
-<!--                {% endif %}-->
-<!--                {% endfor %}-->
-
+                <td><h5>{{object.content_creator|default:'БОГ'}}</h5></td>
             </tr>
         </div>
         </tbody>

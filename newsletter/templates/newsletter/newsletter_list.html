@@ -1,13 +1,13 @@
 {% extends 'clients/base.html' %}
 {% block content %}
-<div class="row mb-3">
-<div class="col-12 text-center">
-    <div class="card" style="width: 18rem;">
-        <div class="card-body float-center">
-            <h5 class="card-title">Сохраненные настройки</h5>
+<div class="row mb-3" xmlns="http://www.w3.org/1999/html">
+    <div class="col-12 text-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body float-center">
+                <h5 class="card-title">Сохраненные настройки</h5>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="row mb-3">
     <div class="col-1"></div>
@@ -20,11 +20,12 @@
         <thead>
         <tr>
             <th scope="col"></th>
-            <th scope="col">Фио</th>
-            <th scope="col">цена</th>
-            <th scope="col">Создано</th>
-            <th scope="col">активные версии</th>
-            <th scope="col">номер версии</th>
+            <th scope="col">Клиент</th>
+            <th scope="col">Время старта</th>
+            <th scope="col">Переодичность</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Создатель</th>
+
 
         </tr>
         </thead>
@@ -32,24 +33,30 @@
         {% for object in object_list %}
         <div class="col-12">
             <tr>
-                <td><a href="{% url 'clients:client_update' object.pk %}" class="btn btn-success">Изменить </a>
-                    <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a></td>
-<!--                <th>-->
-<!--                    <h4><a href="{% url 'clients:client_detail' object.pk %}"> {{object.last_name}} {{object.first_name}} {{object.surname}}</a></h4>-->
-<!--                </th>-->
 
-<!--                <td>{{object.purchase_price}}</td>-->
-<!--                <td>{{object.user}}</td>-->
-<!--                {% for obj in object.version_set.all %}-->
-<!--                {% if obj.versions_activity %}-->
-<!--                <td>-->
-<!--                    <h4>есть активная расслыка</a></h4>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <h4>{{obj.versions_number}}</h4>-->
-<!--                </td>-->
-<!--                {% endif %}-->
-<!--                {% endfor %}-->
+                {% if user.is_staff%}
+                <td>
+                    <form method="post" action="" class="form-floating">
+                        {% csrf_token %}
+                        <button class="btn btn-warning" type="submit" name="pk" value="{{object.pk}}">Отключить</button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'newsletter:update' object.id %}" class="btn btn-danger">изменить </a>
+                    <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a>
+                    {% endif %}
+                    {% if user.is_superuser%}
+                    <a href="{% url 'newsletter:delete' object.id %}" class="btn btn-danger">Удалить </a>
+                </td>
+                {% endif %}
+                <th><h5>{{object.client.email}}</a></h5></th>
+                {% if object.start_time %}
+                <th><h5>{{object.start_time}}</a></h5></th>
+                {% else %}
+                <th><h5>{{object.created_time}}</a></h5></th>
+                {% endif %}
+                <th><h5>{{object.periodicity}}</a></h5></th>
+                <th><h5>{{object.status}}</a></h5></th>
+                <td><h5>{{object.content_creator|default:'БОГ'}}</h5></td>
 
             </tr>
         </div>

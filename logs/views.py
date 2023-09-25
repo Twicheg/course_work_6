@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, DeleteView
@@ -5,18 +6,14 @@ from django.views.generic import ListView, DetailView, DeleteView
 from logs.models import Logs
 
 
-# Create your views here.
-class LogsListView(ListView):
-    model = Logs
-
-class LogsDetailView(DetailView):
+class LogsListView(LoginRequiredMixin, ListView):
     model = Logs
 
 
-class LogsDeleteView(DeleteView):
+class LogsDetailView(LoginRequiredMixin, DetailView):
+    model = Logs
+
+
+class LogsDeleteView(LoginRequiredMixin, DeleteView):
     model = Logs
     success_url = reverse_lazy('logs:list')
-
-
-
-

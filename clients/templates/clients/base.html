@@ -20,7 +20,7 @@
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">"Сервис рассылок"</a>
+    <a class="navbar-brand" href="{% url 'clients:main'%}">"Сервис рассылок"</a>
     <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,7 +36,7 @@
                 <a class="nav-link" href="{% url 'users:logout'%}"> Выход <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'users:update'%}">Профиль</a>
+                <a class="nav-link" href="{% url 'users:update' user.pk %}">Профиль</a>
             </li>
             {% else %}
             <li class="nav-item active">
@@ -65,14 +65,23 @@
 </nav>
 
 <div class="nav-scroller bg-white box-shadow">
+    {% if user.is_authenticated %}
     <nav class="nav nav-underline">
-        <a class="nav-link active" href="{% url 'clients:clients_list' %}">К рассылкам</a>
-        <a class="nav-link active" href="{% url 'newsletter:list' %}">К настройкам</a>
-        <a class="nav-link active" href="{% url 'newsletter:message_list' %}">К сообщениям</a>
+        <a class="nav-link active" href="{% url 'clients:clients_list' %}">Создать рассылку</a>
+        <a class="nav-link active" href="{% url 'clients:clients_list' %}">К вашим пользователям</a>
+        <a class="nav-link active" href="{% url 'newsletter:list' %}">К вашим рассылкам</a>
+        <a class="nav-link active" href="{% url 'newsletter:message_list' %}">К вашим сообщениям</a>
         <a class="nav-link active" href="{% url 'logs:list' %}">К логам</a>
-
-
+        {% if user.is_staff %}
+        <a class="nav-link active" href="{% url 'users:list' %}">Список пользователей</a>
+        {% endif %}
     </nav>
+    {% else %}
+    <div class="col mb-1"></div>
+    <div class="col ">
+        <h4>Войдите или зарегистрируйтесь</h4>
+    </div>
+    {% endif %}
 </div>
 {% block content %}
 {% endblock %}

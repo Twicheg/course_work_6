@@ -1,12 +1,14 @@
 import random
 import time
 
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 
 from config import settings
 from services.message import mail
@@ -40,13 +42,30 @@ class RegisterView(CreateView):
 
 
 def verification(request, pk):
-    print(pk)
     for i in User.objects.all():
-        print(i,i.verification)
         if i.verification == pk and i.email == User.objects.get(verification=pk).email:
             i.is_active = True
             i.save()
     return render(request, 'users/verification.html')
+
+
+@login_required
+@permission_required('users.change_user')
+def user_deactivate(request, pk):
+    for i in User.objects.all():
+        if i.id == pk:
+            i.is_active = False
+            i.save()
+    return redirect(reverse('users:list'))
+
+
+def user_activate(request, pk):
+    for i in User.objects.all():
+        if i.id == pk:
+            i.is_active = True
+            i.save()
+
+    return redirect(reverse('users:list'))
 
 
 class UserUpdateView(UpdateView):
@@ -70,3 +89,34 @@ def genpass(request):
     send_mail(message=password, title='Генерация пароля', client=request.user.email)
 
     return redirect(reverse('users:login'))
+
+
+class UserListView(ListView):
+    model = User
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.is_staff:
+            return queryset
+        else:
+            return Http404
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        return super().get_context_data(**kwargs)
+
+    def post(self, request):
+        if self.request.method == 'POST':
+            for i in User.objects.all():
+                if i.email == self.request.POST.get('name'):
+                    i.is_staff = True
+                    i.save()
+        return redirect(reverse('users:list'))
+
+    template_name = 'users/users_list.html'
+
+
+class UserDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'users.del_user'
+    model = User
+    template_name = 'users/users_confirm_delete.html'
+    success_url = reverse_lazy('users:list')
