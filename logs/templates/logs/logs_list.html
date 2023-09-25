@@ -14,6 +14,8 @@
         <thead>
         <tr>
             <th scope="col">клиент</th>
+            <th scope="col">переодичность</th>
+            <th scope="col">статус рассылки</th>
             <th scope="col">время попытки</th>
             <th scope="col">статсу попытки</th>
             <th scope="col">ответ сервера</th>
@@ -25,7 +27,9 @@
         <div class="col-12">
             <tr>
 
-                <td>{{object.newsletter.client}}</td>
+                <td>{{object.newsletter.client.email}}
+                <td>{{object.newsletter.periodicity}}</td>
+                <td>{{object.newsletter.status}}</td>
                 <td>{{object.time}}</td>
                 <td>{{object.status}}</td>
                 {% if object.answer > 0 %}
