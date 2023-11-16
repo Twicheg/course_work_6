@@ -25,7 +25,7 @@ def index(request):
         'count_of_newsletter': len([i for i in MessageSettings.objects.all()]),
         'active_news': len([i for i in MessageSettings.objects.filter(status='started')]),
         'uniq_clients': len({i.email for i in Clients.objects.all()}),
-        'blog_list': list
+        'blog_list': list[:3]
     }
 
     return render(request, 'clients/main.html', context)

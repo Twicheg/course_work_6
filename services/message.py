@@ -17,7 +17,6 @@ def mail(message, title, client):
 
 
 def send_message():
-    # print('asdasd')
     timenow = datetime.datetime.today().replace(microsecond=0)
     print(f'{datetime.datetime.today()}, crontab work')
     for obj in MessageSettings.objects.all():
